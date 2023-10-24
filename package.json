@@ -11,14 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "si"
+    "url": "https://github.com/Aaron-Pena/DFE-Proyecto-Parcial-2"
   },
   "author": "Peña Camarena Aaron",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.2",
     "live-server": "^1.2.2",
-    "node-css": "^0.1.0",
-    "node-sass": "^9.0.0"
+    "node-css": "^0.1.0"
   }
 }

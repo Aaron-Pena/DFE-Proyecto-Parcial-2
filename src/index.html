@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani" rel="stylesheet">
+    <title>To-Do List</title>
+</head>
+<body>
+    
+  <header>
+  </header>
+
+  <main>
+    
+    <div id="tasks"> <!--sales -> tasks-->
+      <h1>Notas</h1>
+
+      <button id="addNote" class="btn-action">Agregar Nueva nota</button> <!--addSale -> addNote-->
+
+    </div>
+    <br>
+
+    <form id="filter-form" class="filter-section">
+
+      <select id="note-filter" class="filter-field" placeholder="Notas actuales"> <!--game-filter -> note-filter-->
+        <option value="" selected>Todas los notas</option>
+        <!-- Llenaremos las opciones con datos consumidos desde una api -->
+      </select>
+
+      <input type="text" id="title-filter" placeholder="Titulo" class="filter-field"> <!--customer-filter  -> title-filter  -->
+      <input type="text" id="status-filter" placeholder="Status" class="filter-field"> <!-- salesman-filter  ->  status-filter-->
+      <input type="text" id="priority-filter" placeholder="Prioridad" class="filter-field"> <!-- salesman-filter  ->priority-filter  -->
+      <input type="text" id="tag-filter" placeholder="Etiqueta" class="filter-field"> <!-- salesman-filter  -> tag-filter  -->
+      <input type="date" id="date-filter" placeholder="Fecha" class="filter-field"> <!--  ->  -->
+
+      <button type="submit" id="apply-filters" class="btn-submit">Consultar</button> <!--  ->  -->
+      <button type="reset" id="reset-filters" class="btn">Limpiar</button> <!--  ->  -->
+
+    </form>
+    
+    <br>
+
+    <div class="table-container">
+
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th>No. Nota</th> <!--No. Venta  -> No. Nota -->
+            <th>Titulo</th> <!-- Cliente -> Titulo -->
+            <th>Descripcion</th> <!-- Teléfono ->  Descripcion -->
+            <th>Status</th> <!--Producto vendido  -> Status -->
+            <th>Fecha de Vencimiento</th> <!-- Vendedor -> Fecha de Vencimiento -->
+            <th>Proridad</th> <!-- Fecha de Venta -> Proridad -->
+            <th class="text-right">Etiqueta</th> <!-- Precio de venta  -> Etiqueta -->
+             <!--Notas  -> borrado -->
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="data-table-body">
+          <!-- Llenaremos la tabla con datos consumidos desde una api -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="message" class="message">
+      <p>No se han hecho notas.</p>
+    </div>
+
+    <div id="modal-background" class="modal-background">
+
+    </div>
+
+    <div id="modal" class="modal">
+
+      <h2>NUEVA NOTA</h2>
+
+      <form id="task-form" class="form-section"> <!-- sale-form -> task-form --> 
+
+        <label for="title-field">Titulo:</label> <!-- client-field -> title-field --> 
+        <input type="text" id="title-field" class="form-field" required> 
+
+        <label for="description-field">Descripcion:</label> <!--telnumber-field  -> description-field  --> 
+        <input type="text" id="description-field" class="form-field" required> 
+
+        <label for="status-field">Status:</label> <!--game-field -> status-field -->
+        <select id="status-field" class="form-field" required> 
+          <!-- Llenar desde api -->
+        </select>
+
+        <label for="priority-field">Prioridad:</label> <!--game-field -> priority-field -->
+        <select id="priority-field" class="form-field" required> 
+          <!-- Llenar desde api -->
+        </select>
+
+        <label for="tag-field">Etiqueta:</label> <!--game-field -> tag-field -->
+        <select id="tag-field" class="form-field" required> 
+          <!-- Llenar desde api -->
+        </select>
+
+        <label for="expDate-field">Fecha de Venta:</label> <!-- dateofSale  -> expDate-field -->
+        <input type="date" id="expDate-field" class="form-field" required> 
+
+ 
+        <button type="submit" class="btn-submit">Guardar Nota</button> 
+
+      </form>
+
+    </div>
+
+    
+  </main>
+
+  <script src="./assets/js/utils.js"></script>
+  <script src="./assets/js/fetch-api.js"></script>
+  <script src="./assets/js/script.js"></script>
+
+</body>
+</html>

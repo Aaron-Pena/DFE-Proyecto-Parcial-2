@@ -1,0 +1,323 @@
+/* #region GENERAL */
+:root{
+    --font-family: 'Rajdhani', sans-serif;
+    --font-size: 20px;
+    --font-weight: 300;
+    
+    --color-white:#ffffff;
+    --color-black: #000000;
+
+    --color-primario: #0059ff ;
+    --color-secundario: #faf172 ;
+    --color-terciario: #00ff7b ;
+    --color-background: #ccc6ba;
+    --color-focus:#b65e5d;
+    --color-seleccion: #c9c8bf;
+    --color-button:#8dbdbc;
+    --color-buttonActive:#628584;
+    --color-buttonSub:#0b9bb3;
+    --color-buttonSubAct:#10606e;
+    --color-delete:red;
+    --color-deleteAct:#7c0505;
+
+    --size-header: 75px;
+    --size-nav-item: 60px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-shadow: 0 0 0.2em #cfcfcf;
+    
+  }
+
+html {
+    scroll-behavior: smooth;
+    }
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    background: var(--color-background);
+    color: var(--color-primario);
+  }
+
+  main {
+    text-align: center;
+    min-height: calc(100vh - 136px);
+    border-radius: 3px;
+    padding: 2rem 2rem;
+    margin: 1.5rem; 
+    background-color: var(--color-white);
+    border-radius: 8px;
+  }
+  
+ h1{
+   background-color:var(--color-secundario);
+   margin: 1.25%;
+   border-radius: 8px;
+ }
+ 
+ 
+
+ 
+/*#endregion*/
+
+
+/* #region MODAL */
+
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    font-size: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  table thead tr {
+    background-color: var(--color-secundario);
+      color: var(--color-primario);
+      text-align: left; 
+  }
+  
+  table thead tr th {
+    border: none;
+    font-size: 1.125rem;
+    padding: 2rem 1.25rem;
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  table tbody tr {
+    border-bottom: none;
+  }
+  
+  table tbody tr:nth-of-type(even) {
+    background-color: #f75ae2; 
+  }
+  
+  table tbody tr:last-of-type {
+    border-bottom: 4px solid var(--color-terciario);
+  }
+  
+  table tbody tr td {
+    padding: 1rem 1.25rem;
+    border: none;
+    white-space: wrap;
+  }
+  
+  table tbody tr td img {
+    max-width: 100px;
+    height: auto;
+  }
+  
+  .message {
+    text-align: center;
+    font-size: 1rem;
+    padding: 2rem;
+  }
+  
+  .filter-section {
+      background-color: var(--color-focus);
+      padding: 2rem;
+      border: none;
+      
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      border-radius: 8px; 
+  }
+  
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    background-color: var(--color-seleccion);
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input,
+  textarea,
+  select {
+    flex-grow: 2;
+    min-width: 200px;
+    background-color:var(--color-seleccion) ;
+    color: var(--color-black);
+    font-size: 1rem;
+    padding: 1rem;
+    border: 0.60px solid var(--color-white);
+    border-radius: 3px;
+  }
+  
+  input:focus, input:hover, input:active,
+  textarea:focus,
+  textarea:hover,
+  textarea:active,
+  select:focus,
+  select:hover,
+  select:active {
+    border: 1px solid var(--color-white);
+  }
+  
+  input[type="text"]{
+    flex-grow: 1;
+    min-width: 200px;
+    background-color:var(--color-seleccion) ;
+      color: var(--color-black);
+  }
+  input[type="number"] {
+    flex-grow: 1;
+    min-width: 200px;
+    background-color:var(--color-seleccion) ;
+      color: var(--color-black);
+  }
+  
+  input[type="date"] {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  select {
+    flex-grow: 1;
+    min-width: 200px;
+  }
+  
+  button {
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  
+  button.btn {
+    background-color: var(--color-button);
+      border-radius: 8px; 
+      border: 1px solid var(--color-black);
+      color: var(--color-black);
+  }
+  
+  button.btn:hover {
+    background: var(--color-buttonActive);
+    border-radius: 8px; 
+  }
+  
+  button.btn-action {
+   background-color: var(--color-button);
+      border-radius: 8px; 
+      border: 1px solid var(--color-black);
+      color: var(--color-black);
+  }
+  
+  button.btn-action:hover {
+    background: var(--color-buttonActive);
+    border-radius: 8px; 
+  }
+  
+  button.btn-submit {
+    background-color: var(--color-buttonSub);
+    border-radius: 8px; 
+    border: 1px solid var(--color-black);
+    color: var(--color-black);
+  }
+  
+  button.btn-submit:hover {
+    background: var(--color-buttonSubAct);
+    border-radius: 8px; 
+   
+  }
+  
+  button.btn-delete {
+    background-color: var(--color-delete);
+      border-radius: 8px; 
+      border: 1px solid var(--color-black);
+      color: var(--color-black);
+  }
+  
+  button.btn-delete:hover {
+    background: var(--color-deleteAct);
+    border-radius: 8px; 
+    
+  }
+  
+  .modal-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #171a4a;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  #task-form{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height: 40vw;
+    background-color: #2f2c79;
+    padding: .5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  #task-form > input,#task-form > select{
+    flex-grow: 1;
+      width: 500px;
+      height: 30px;
+      background-color: #171a4a;
+      color: #ff9800;
+      align-self: center;
+      height: auto;
+    }
+    #task-form > textarea{
+      flex-grow: 1;
+      width: 100px;
+      height: 50px;
+      background-color: #171a4a;
+      color: #ff9800;
+      align-self: center;
+    }
+
+/*#endregion*/
+
+
+/* #region GENERAL */
+
+/*#endregion*/
+
+
+/* #region GENERAL */
+
+/*#endregion*/
+
