@@ -1,50 +1,49 @@
 //#region 2. MODELO DE DATOS (MODELS)
 
-class Sale {
-    constructor(id, client, telNumber, game, dateOfSale, seller, price, notes) {
-      this.id = id; // Identificador de la venta
-      this.client = client; // Nombre del cliente
-      this.telNumber = telNumber; // Teléfono del cliente
-      this.game = game; // Referencia al juego
-      this.seller = seller; // Vendedor
-      this.dateOfSale = dateOfSale; // Fecha de la venta
-      this.price = price; // Precio de la venta
-      this.notes = notes; // Información adicional sobre la venta
+class Task {
+    constructor(id, title, description, completed, priority,dueDate,tag) {
+      this.id = id; 
+      this.title = title; 
+      this.description = description;
+      this.completed = completed;
+      this.priority = priority;
+      this.dueDate = dueDate;
+      this.tag = tag;
+      
     }
   }
   
-  function mapAPIToSales(data) {
+  function mapAPIToTasks(data) {
     return data.map(item => {
-      return new Sale(
+      return new Task(
         item.id,
-        item.client,
-        item.telNumber,
-        item.game,
-        new Date(item.dateOfSale),
-        item.seller,
-        item.price,
-        item.notes
+        item.title,
+        item.description,
+        item.completed,
+        item.priority,
+        new Date(item.dueDate),
+        item.tag
       );
     });
   }
   
-  class GameDescriptor {
+  class TaskDescriptor {
   
-    constructor(id, title, price) {
+    constructor(id, title, priority) {
       this.id = id;
       this.title = title;
-      this.price = price;
+      this.priority = priority;
     }
   
   }
   
   
-  function mapAPIToGameDescriptors(data) {
-    return data.map(game => {
-      return new GameDescriptor(
-        game.id,
-        game.title,
-        game.price
+  function mapAPIToTaskDescriptors(data) {
+    return data.map(task => {
+      return new TaskDescriptor(
+        task.id,
+        task.title,
+        task.priority
       );
     });
   }
@@ -53,13 +52,13 @@ class Sale {
   
 //#region 3. VENTAS (VIEW)
 
-function displaySalesView(sales) {
+function displayTasksView(tasks) {
 
     clearTable();
   
     showLoadingMessage();
   
-    if (sales.length === 0) {
+    if (tasks.length === 0) {
   
       showNotFoundMessage();
   
@@ -67,37 +66,37 @@ function displaySalesView(sales) {
   
       hideMessage();
   
-      displaySalesTable(sales);
+      displayTasksTable(tasks);
     }
   
   }
   
   
-  function displayClearSalesView() {
+  function displayClearTasksView() {
     clearTable();
   
     showInitialMessage();
   }
   
-  function displaySalesTable(sales) {
+  function displayTasksTable(tasks) {
   
     const tablaBody = document.getElementById('data-table-body');
   
-    sales.forEach(sale => {
+    tasks.forEach(task => {
   
       const row = document.createElement('tr');
   
       row.innerHTML = `
-        <td>${sale.id}</td>
-        <td>${sale.client}</td>
-        <td>${sale.telNumber}</td>
-        <td>${sale.game}</td>
-        <td>${sale.seller}</td>
-        <td>${formatDate(sale.dateOfSale)}</td>
-        <td class="text-right">${formatCurrency(sale.price)}</td>
-        <td>${sale.notes}</td>
+        <td>${task.id}</td>
+        <td>${task.title}</td>
+        <td>${task.description}</td>
+        <td>${task.completed}</td>
+        <td>${task.priority}</td>
+        <td>${formatDate(task.dueDate)}</td>
+        <td>${task.tag}</td>
         <td>
-          <button class="btn-delete" data-sale-id="${sale.id}">Eliminar</button>
+        <button class="btn-update" data-task-id="${task.id}">Editar</button>
+          <button class="btn-delete" data-task-id="${task.id}">Eliminar</button>
         </td>
       `;
   
@@ -105,7 +104,7 @@ function displaySalesView(sales) {
   
     });
   
-    initDeleteSaleButtonHandler();
+    initDeleteTaskButtonHandler();
   }
   
   function clearTable() {
@@ -125,7 +124,7 @@ function displaySalesView(sales) {
   function showInitialMessage() {
     const message = document.getElementById('message');
   
-    message.innerHTML = 'No se ha realizado una consulta de ventas.';
+    message.innerHTML = 'No se ha realizado una consulta de notas.';
   
     message.style.display = 'block';
   }
@@ -133,7 +132,7 @@ function displaySalesView(sales) {
   function showNotFoundMessage() {
     const message = document.getElementById('message');
   
-    message.innerHTML = 'No se encontraron juegos con el filtro proporcionado.';
+    message.innerHTML = 'No se encontraron notas con el filtro proporcionado.';
   
     message.style.display = 'block';
   }
@@ -152,104 +151,105 @@ function initFilterButtonsHandler() {
 
     document.getElementById('filter-form').addEventListener('submit', event => {
       event.preventDefault();
-      searchSales();
+      searchTasks();
     });
   
-    document.getElementById('reset-filters').addEventListener('click', () => clearSales());
+    document.getElementById('reset-filters').addEventListener('click', () => clearTasks());
   
   }
   
   
-  function clearSales() {
+  function clearTasks() {
     document.querySelector('select.filter-field').selectedIndex = 0;
     document.querySelectorAll('input.filter-field').forEach(input => input.value = '');
   
-    displayClearSalesView();
+    displayClearTasksView();
   }
   
   
-  function resetSales() {
+  function resetTasks() {
     document.querySelector('select.filter-field').selectedIndex = 0;
     document.querySelectorAll('input.filter-field').forEach(input => input.value = '');
-    searchSales();
+    searchTasks();
   }
   
   
-  function searchSales() {
-    const game = document.getElementById('game-filter').value;
-    const client = document.getElementById('customer-filter').value;
-    const seller = document.getElementById('salesman-filter').value;
-    const dateOfSale = document.getElementById('date-filter').value;
+  function searchTasks() {
+    const title = document.getElementById('title-filter').value;
+    const priority = document.getElementById('priority-filter').value;
+    const completed = document.getElementById('completed-filter').value;
+    const dueDate = document.getElementById('date-filter').value;
+    const tag = document.getElementById('tag-filter').value;
+   
   
-    getSalesData(game, client, seller, dateOfSale);
+    getTasksData(title,priority, completed, dueDate,tag );
   }
   
   //#endregion
   
 //#region 5. BOTONES PARA AGREGAR Y ELIMINAR VENTAS (VIEW)
 
-function initAddSaleButtonsHandler() {
+function initAddTaskButtonsHandler() {
 
-  document.getElementById('addSale').addEventListener('click', () => {
-    openAddSaleModal()
+  document.getElementById('addTask').addEventListener('click', () => {
+    openAddTaskModal()
   });
 
   document.getElementById('modal-background').addEventListener('click', () => {
-    closeAddSaleModal();
+    closeAddTaskModal();
   });
 
-  document.getElementById('sale-form').addEventListener('submit', event => {
+  document.getElementById('task-form').addEventListener('submit', event => {
     event.preventDefault();
-    processSubmitSale();
+    processSubmitTask();
   });
   
   }
-  function openAddSaleModal() {
-    document.getElementById('sale-form').reset();
+  function openAddTaskModal() {
+    document.getElementById('task-form').reset();
     document.getElementById('modal-background').style.display = 'block';
     document.getElementById('modal').style.display = 'block';
   }
   
   
-  function closeAddSaleModal() {
-    document.getElementById('sale-form').reset();
+  function closeAddTaskModal() {
+    document.getElementById('task-form').reset();
     document.getElementById('modal-background').style.display = 'none';
     document.getElementById('modal').style.display = 'none';
   }
   
   
-  function processSubmitSale() {
-    const client = document.getElementById('client-field').value;
-    const telNumber = document.getElementById('telNumber-field').value;
-    const game = document.getElementById('game-field').value;
-    const seller = document.getElementById('seller-field').value;
-    const dateofSale = document.getElementById('dateofSale-field').value;
-    const price = document.getElementById('price-field').value;
-    const notes = document.getElementById('notes-field').value;
-  
-    const saleToSave = new Sale(
+  function processSubmitTask() {
+    const title = document.getElementById('title-field').value;
+    const description = document.getElementById('description-field').value;
+    const completed = document.getElementById('completed-field').value;
+    const priority = document.getElementById('priority-field').value;
+    const dueDate = document.getElementById('dueDate-field').value;
+    const tag = document.getElementById('tag-field').value;
+    
+    
+   const taskToSave = new Task(
       null,
-      client,
-      telNumber,
-      game,
-      dateofSale,
-      seller,
-      parseFloat(price),
-      notes
+      title,
+      description,
+      completed,
+      priority,
+      dueDate,
+      tag
     );
   
-    createSale(saleToSave);
+    createTask(taskToSave);
   }
   
   
-  function initDeleteSaleButtonHandler() {
+  function initDeleteTaskButtonHandler() {
   
     document.querySelectorAll('.btn-delete').forEach(button => {
   
       button.addEventListener('click', () => {
   
-        const saleId = button.getAttribute('data-sale-id');
-        deleteSale(saleId); 
+        const taskId = button.getAttribute('data-task-id');
+        deleteTask(taskId); 
   
       });
   
@@ -261,26 +261,26 @@ function initAddSaleButtonsHandler() {
   //#endregion
   
 //#region 6. CARGAR DATOS DE MODELOS PARA FORM (VIEW)
-function displayGameOptions(games) {
+function displayTaskOptions(tasks) {
 
-    const gameFilter = document.getElementById('game-filter');
-    const gameModal = document.getElementById('game-field');
+    const taskFilter = document.getElementById('task-filter');
+    //const priorityFilter = document.getElementById('priority-filter');
+
+    const taskModal = document.getElementById('priority-field');
+
   
-    games.forEach(game => {
+    tasks.forEach(task => {
   
       const optionFilter = document.createElement('option');
-  
-      optionFilter.value = game.title;
-      optionFilter.text = `${game.title} - ${formatCurrency(game.price)}`;
-  
-      gameFilter.appendChild(optionFilter);
-  
-      const optionModal = document.createElement('option');
-  
-      optionModal.value = game.title;
-      optionModal.text = `${game.title} - ${formatCurrency(game.price)}`;
-  
-      gameModal.appendChild(optionModal);
+      optionFilter.value = task.title;
+      optionFilter.text = `${task.title} - ${task.priority}`;
+      taskFilter.appendChild(optionFilter);
+
+
+     // const optionModal = document.createElement('option');
+      //optionModal.value = task.title;
+     // optionModal.text = `${task.priority}`;
+      //taskModal.appendChild(optionModal);
     });
   
   }
@@ -289,73 +289,76 @@ function displayGameOptions(games) {
    
 //#region 7. CONSUMO DE DATOS DESDE API
 
-function getGameData() {
-    fetchAPI(`${apiURL}/catalogo`, 'GET')
+function getTaskData() {
+    fetchAPI(`${apiURL}/tasks`, 'GET')
       .then(data => {
-        const gamesList = mapAPIToGameDescriptors(data);
-        displayGameOptions(gamesList);
+        const tasksList = mapAPIToTaskDescriptors(data);
+        displayTaskOptions(tasksList);
       });
   
   }
   
   
-  function getSalesData(game, client, seller, dateOfSale) {
+  function getTasksData(title,priority, completed,dueDate, tag ) {
   
-    const url = buildGetSalesDataUrl(game,client,seller,dateOfSale);
+    const url = buildGetTasksDataUrl(title,priority, completed, dueDate, tag);
   
     fetchAPI(url, 'GET')
       .then(data => {
-        const salesList = mapAPIToSales(data);
-        displaySalesView(salesList);
+        const tasksList = mapAPIToTasks(data);
+        displayTasksView(tasksList);
       });
   }
   
   
-  function deleteSale(saleId) {
+  function deleteTask(taskId) {
   
-    const confirm = window.confirm(`¿Estás seguro de que deseas eliminar la venta ${saleId}?`);
+    const confirm = window.confirm(`¿Estás seguro de que deseas eliminar la nota ${taskId}?`);
   
     if (confirm) {
   
-      fetchAPI(`${apiURL}/ventas/${saleId}`, 'DELETE')
+      fetchAPI(`${apiURL}/tasks/${taskId}`, 'DELETE')
         .then(() => {
-          resetSales();
-          window.alert("Venta eliminada.");
+          resetTasks();
+          window.alert("Nota eliminada.");
         });
   
     }
   }
 
-  function createSale(sale) {
+  function createTask(task) {
 
-    fetchAPI(`${apiURL}/ventas`, 'POST', sale)
-      .then(sale => {
-        closeAddSaleModal();
-        resetSales();
-        window.alert(`Venta ${sale.id} creada correctamente.`);
+    fetchAPI(`${apiURL}/tasks`, 'POST', task)
+      .then(task => {
+        closeAddTaskModal();
+        resetTasks();
+        window.alert(`Nota ${task.id} creada correctamente.`);
       });
   
   }
 
 
-function buildGetSalesDataUrl(game, client, seller, dateofSale) {
+function buildGetTasksDataUrl(title, priority, completed, dueDate,tag) {
 
-  const url = new URL(`${apiURL}/ventas`);
+  const url = new URL(`${apiURL}/tasks`);
 
-  if (game) {
-    url.searchParams.append('game', game);
+  if (title) {
+    url.searchParams.append('title', title);
   }
 
-  if (client) {
-    url.searchParams.append('client', client);
+  if (priority) {
+    url.searchParams.append('priority', priority);
   }
 
-  if (seller) {
-    url.searchParams.append('seller', seller);
+  if (dueDate) {
+    url.searchParams.append('dueDate', dueDate);
+  }
+  if (completed) {
+    url.searchParams.append('completed', completed);
   }
 
-  if (dateofSale) {
-    url.searchParams.append('dateofSale', dateofSale);
+  if (tag) {
+    url.searchParams.append('tag', tag);
   }
 
   return url;
@@ -365,11 +368,11 @@ function buildGetSalesDataUrl(game, client, seller, dateofSale) {
   
 //#region 8. INICIALIZAMOS FUNCIONALIDAD (CONTROLLER)
 
-initAddSaleButtonsHandler();
+initAddTaskButtonsHandler();
 
 initFilterButtonsHandler();
 
-getGameData();
+getTaskData();
 
 //#endregion
 

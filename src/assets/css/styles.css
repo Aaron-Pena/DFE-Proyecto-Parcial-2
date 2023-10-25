@@ -9,8 +9,9 @@
 
     --color-primario: #0059ff ;
     --color-secundario: #faf172 ;
-    --color-terciario: #00ff7b ;
+    --color-terciario: #9e9220 ;
     --color-background: #ccc6ba;
+    --color-even:#cccccc98;
     --color-focus:#b65e5d;
     --color-seleccion: #c9c8bf;
     --color-button:#8dbdbc;
@@ -19,7 +20,9 @@
     --color-buttonSubAct:#10606e;
     --color-delete:red;
     --color-deleteAct:#7c0505;
-
+    --color-ModalBox:#85838394;
+    --color-update:rgb(65, 255, 7);
+    --color-updateAct:#2f690d;
     --size-header: 75px;
     --size-nav-item: 60px;
 }
@@ -29,7 +32,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    text-shadow: 0 0 0.2em #cfcfcf;
+    
     
   }
 
@@ -67,7 +70,7 @@ body {
 /*#endregion*/
 
 
-/* #region MODAL */
+/* #region Tabla */
 
 .table-container {
     max-width: 100%;
@@ -90,7 +93,7 @@ body {
   
   table thead tr th {
     border: none;
-    font-size: 1.125rem;
+    font-size: 1.45rem;
     padding: 2rem 1.25rem;
     white-space: nowrap;
     text-align: center;
@@ -101,17 +104,18 @@ body {
   }
   
   table tbody tr:nth-of-type(even) {
-    background-color: #f75ae2; 
+    background-color: var(--color-even); 
   }
   
   table tbody tr:last-of-type {
-    border-bottom: 4px solid var(--color-terciario);
+    border-bottom: 4px solid var(--color-secundario);
   }
   
   table tbody tr td {
     padding: 1rem 1.25rem;
     border: none;
     white-space: wrap;
+    font-size: 1.5rem;
   }
   
   table tbody tr td img {
@@ -121,7 +125,7 @@ body {
   
   .message {
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.25rem;
     padding: 2rem;
   }
   
@@ -258,7 +262,26 @@ body {
     border-radius: 8px; 
     
   }
+
+  button.btn-update {
+    background-color: var(--color-update);
+      border-radius: 8px; 
+      border: 1px solid var(--color-black);
+      color: var(--color-black);
+  }
   
+  button.btn-update:hover {
+    background: var(--color-updateAct);
+    border-radius: 8px; 
+    
+  }
+  
+
+/*#endregion*/
+
+
+/* #region Modal */
+
   .modal-background {
     display: none;
     position: fixed;
@@ -275,19 +298,21 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #171a4a;
-    padding: 20px;
+    background: var(--color-background);
+    padding: 30px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+    font-size: 1.5rem;
   }
   #task-form{
     display: flex;
     flex-direction: column;
-    width: 50vw;
-    height: 40vw;
-    background-color: #2f2c79;
-    padding: .5rem;
+    width: auto;
+    height: auto;
+    background-color: var(--color-ModalBox);
+    border-radius: 8px;
+    padding: 1rem;
     flex-wrap: wrap;
     gap: 1rem;
   }
@@ -295,10 +320,11 @@ body {
     flex-grow: 1;
       width: 500px;
       height: 30px;
-      background-color: #171a4a;
-      color: #ff9800;
+      background-color: var(--color-background);
+      color: var(--color-black);
       align-self: center;
       height: auto;
+      
     }
     #task-form > textarea{
       flex-grow: 1;
@@ -308,12 +334,6 @@ body {
       color: #ff9800;
       align-self: center;
     }
-
-/*#endregion*/
-
-
-/* #region GENERAL */
-
 /*#endregion*/
 
 

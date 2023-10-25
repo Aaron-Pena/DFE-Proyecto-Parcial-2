@@ -19,23 +19,44 @@
     <div id="tasks"> <!--sales -> tasks-->
       <h1>Notas</h1>
 
-      <button id="addNote" class="btn-action">Agregar Nueva nota</button> <!--addSale -> addNote-->
+      <button id="addTask" class="btn-action">Agregar Nueva nota</button> <!--addSale -> addNote-->
 
     </div>
     <br>
 
     <form id="filter-form" class="filter-section">
 
-      <select id="note-filter" class="filter-field" placeholder="Notas actuales"> <!--game-filter -> note-filter-->
-        <option value="" selected>Todas los notas</option>
+      <select id="task-filter" class="filter-field" placeholder="Notas actuales"> <!--game-filter -> note-filter-->
+        <option value="" selected>Todas las notas</option>
         <!-- Llenaremos las opciones con datos consumidos desde una api -->
       </select>
 
       <input type="text" id="title-filter" placeholder="Titulo" class="filter-field"> <!--customer-filter  -> title-filter  -->
-      <input type="text" id="status-filter" placeholder="Status" class="filter-field"> <!-- salesman-filter  ->  status-filter-->
-      <input type="text" id="priority-filter" placeholder="Prioridad" class="filter-field"> <!-- salesman-filter  ->priority-filter  -->
+
+      <!-- <input type="text" id="priority-filter" placeholder="Prioridad" class="filter-field"> --> <!-- salesman-filter  ->priority-filter  -->
+      <select id="priority-filter" class="filter-field" placeholder="Prioridad"> <!--game-filter -> note-filter-->
+        <option value="" selected>...</option>
+        <option value="Alta" >Alta</option>
+        <option value="Media" >Media</option>
+        <option value="Baja" >Baja</option>
+        <!-- Llenaremos las opciones con datos consumidos desde una api -->
+      </select>
+
       <input type="text" id="tag-filter" placeholder="Etiqueta" class="filter-field"> <!-- salesman-filter  -> tag-filter  -->
+      
+       <select type="text" id="completed-filter" placeholder="completed" class="filter-field"> <!-- salesman-filter  ->  completed-filter-->
+        <option value="" selected>...</option> 
+        <option value="" >true</option> 
+        <option value="" >false</option> 
+      </select>
+      <!--<label for="checkbox" class="filter-field"> 
+        <input type="checkbox"  id="completed-filter" class="filter-field" name="Status" value="false">
+            Completado</label>-->
+              
+
       <input type="date" id="date-filter" placeholder="Fecha" class="filter-field"> <!--  ->  -->
+
+
 
       <button type="submit" id="apply-filters" class="btn-submit">Consultar</button> <!--  ->  -->
       <button type="reset" id="reset-filters" class="btn">Limpiar</button> <!--  ->  -->
@@ -52,10 +73,10 @@
             <th>No. Nota</th> <!--No. Venta  -> No. Nota -->
             <th>Titulo</th> <!-- Cliente -> Titulo -->
             <th>Descripcion</th> <!-- Teléfono ->  Descripcion -->
-            <th>Status</th> <!--Producto vendido  -> Status -->
+            <th>Completed</th> <!--Producto vendido  -> completed -->
+            <th>Prioridad</th> <!-- Fecha de Venta -> Proridad -->
             <th>Fecha de Vencimiento</th> <!-- Vendedor -> Fecha de Vencimiento -->
-            <th>Proridad</th> <!-- Fecha de Venta -> Proridad -->
-            <th class="text-right">Etiqueta</th> <!-- Precio de venta  -> Etiqueta -->
+            <th>Etiqueta</th> <!-- Precio de venta  -> Etiqueta -->
              <!--Notas  -> borrado -->
             <th></th>
           </tr>
@@ -84,27 +105,27 @@
         <input type="text" id="title-field" class="form-field" required> 
 
         <label for="description-field">Descripcion:</label> <!--telnumber-field  -> description-field  --> 
-        <input type="text" id="description-field" class="form-field" required> 
+        <input type="text" id="description-field" class="form-field" required > 
 
-        <label for="status-field">Status:</label> <!--game-field -> status-field -->
-        <select id="status-field" class="form-field" required> 
-          <!-- Llenar desde api -->
-        </select>
+
+
+        <label for="completed">Completed:</label> <!--telnumber-field  -> description-field  --> 
+        <input type="text" id="completed-field" class="form-field" required value="false"> 
 
         <label for="priority-field">Prioridad:</label> <!--game-field -> priority-field -->
         <select id="priority-field" class="form-field" required> 
-          <!-- Llenar desde api -->
+          <option value="Alta" selected>Alta</option>
+          <option value="Media" >Media</option>
+          <option value="Baja" >Baja</option>
         </select>
+
+        <label for="dueDate-field">Fecha de Entrega:</label> <!-- dateofSale  -> dueDate-field -->
+        <input type="date" id="dueDate-field" class="form-field" required> 
 
         <label for="tag-field">Etiqueta:</label> <!--game-field -> tag-field -->
-        <select id="tag-field" class="form-field" required> 
-          <!-- Llenar desde api -->
-        </select>
+        <input type = "text" id="tag-field" class="form-field" required> 
+         
 
-        <label for="expDate-field">Fecha de Venta:</label> <!-- dateofSale  -> expDate-field -->
-        <input type="date" id="expDate-field" class="form-field" required> 
-
- 
         <button type="submit" class="btn-submit">Guardar Nota</button> 
 
       </form>
