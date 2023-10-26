@@ -107,8 +107,45 @@ function displayTasksView(tasks) {
   
     initDeleteTaskButtonHandler();
   }
-  /////////////
 
+  function clearTable() {
+    const tableBody = document.getElementById('data-table-body');
+  
+    tableBody.innerHTML = '';
+  }
+  
+  function showLoadingMessage() {
+    const message = document.getElementById('message');
+  
+    message.innerHTML = 'Cargando...';
+  
+    message.style.display = 'block';
+  }
+  
+  function showInitialMessage() {
+    const message = document.getElementById('message');
+  
+    message.innerHTML = 'No se ha realizado una consulta de notas.';
+  
+    message.style.display = 'block';
+  }
+  
+  function showNotFoundMessage() {
+    const message = document.getElementById('message');
+  
+    message.innerHTML = 'No se encontraron notas con el filtro proporcionado.';
+  
+    message.style.display = 'block';
+  }
+  
+  function hideMessage() {
+    const message = document.getElementById('message');
+  
+    message.style.display = 'none';
+  }
+
+
+  
   function toggleEditRow(row) {
 
     const editButton = row.querySelector('.btn-update');
@@ -147,67 +184,6 @@ function displayTasksView(tasks) {
     };
   }
   
-
-
-
-  function saveEdit(taskId,taskData) {
-    fetch(`${apiURL}/tasks/${taskId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(taskData),
-    })
-      .then(response => {
-        if (response.ok) {
-          console.log("Datos enviados")
-        } else {
-          console.error('Error al guardar los datos en el servidor');
-        }
-      })
-      .catch(error => {
-        console.error('Error en la solicitud HTTP:', error);
-      });
-  }
- 
-
-
-  ////////////////
-  function clearTable() {
-    const tableBody = document.getElementById('data-table-body');
-  
-    tableBody.innerHTML = '';
-  }
-  
-  function showLoadingMessage() {
-    const message = document.getElementById('message');
-  
-    message.innerHTML = 'Cargando...';
-  
-    message.style.display = 'block';
-  }
-  
-  function showInitialMessage() {
-    const message = document.getElementById('message');
-  
-    message.innerHTML = 'No se ha realizado una consulta de notas.';
-  
-    message.style.display = 'block';
-  }
-  
-  function showNotFoundMessage() {
-    const message = document.getElementById('message');
-  
-    message.innerHTML = 'No se encontraron notas con el filtro proporcionado.';
-  
-    message.style.display = 'block';
-  }
-  
-  function hideMessage() {
-    const message = document.getElementById('message');
-  
-    message.style.display = 'none';
-  }
   
   //#endregion
   
@@ -406,6 +382,26 @@ function getTaskData() {
   }
 
 
+  function saveEdit(taskId,taskData) {
+    fetch(`${apiURL}/tasks/${taskId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(taskData),
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Datos enviados")
+        } else {
+          console.error('Error al guardar los datos en el servidor');
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud HTTP:', error);
+      });
+  }
+
 
 
 function buildGetTasksDataUrl(title, priority, completed, dueDate,tag) {
@@ -440,10 +436,7 @@ function buildGetTasksDataUrl(title, priority, completed, dueDate,tag) {
 
 initAddTaskButtonsHandler();
 
-
-
 initFilterButtonsHandler();
-
 
 getTaskData();
 

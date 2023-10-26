@@ -16,50 +16,43 @@
 
   <main>
     
-    <div id="tasks"> <!--sales -> tasks-->
+    <div id="tasks"> 
       <h1>Notas</h1>
 
-      <button id="addTask" class="btn-action">Agregar Nueva nota</button> <!--addSale -> addNote-->
+      <button id="addTask" class="btn-action">Agregar Nueva nota</button> 
 
     </div>
     <br>
 
     <form id="filter-form" class="filter-section">
 
-      <select id="task-filter" class="filter-field" placeholder="Notas actuales"> <!--game-filter -> note-filter-->
+      <select id="task-filter" class="filter-field" placeholder="Notas actuales"> 
         <option value="" selected>Todas las notas</option>
-        <!-- Llenaremos las opciones con datos consumidos desde una api -->
+        
       </select>
 
-      <input type="text" id="title-filter" placeholder="Titulo" class="filter-field"> <!--customer-filter  -> title-filter  -->
+      <input type="text" id="title-filter" placeholder="Titulo" class="filter-field"> 
 
-      <!-- <input type="text" id="priority-filter" placeholder="Prioridad" class="filter-field"> --> <!-- salesman-filter  ->priority-filter  -->
-      <select id="priority-filter" class="filter-field" placeholder="Prioridad"> <!--game-filter -> note-filter-->
+      <select id="priority-filter" class="filter-field" placeholder="Prioridad"> 
         <option value="" selected>Prioridad</option>
         <option value="Alta" >Alta</option>
         <option value="Media" >Media</option>
         <option value="Baja" >Baja</option>
-        <!-- Llenaremos las opciones con datos consumidos desde una api -->
+        
       </select>
 
-      <input type="text" id="tag-filter" placeholder="Etiqueta" class="filter-field"> <!-- salesman-filter  -> tag-filter  -->
+      <input type="text" id="tag-filter" placeholder="Etiqueta" class="filter-field"> 
       
-       <select type="text" id="completed-filter" placeholder="completed" class="filter-field"> <!-- salesman-filter  ->  completed-filter-->
+       <select type="text" id="completed-filter" placeholder="completed" class="filter-field"> 
         <option value="" selected>Status</option> 
-        <option value="" >true</option> 
-        <option value="" >false</option> 
+        <option value="false" >false</option> 
+        <option value="true" >true</option>   
       </select>
-      <!--<label for="checkbox" class="filter-field"> 
-        <input type="checkbox"  id="completed-filter" class="filter-field" name="Status" value="false">
-            Completado</label>-->
-              
 
-      <input type="date" id="date-filter" placeholder="Fecha" class="filter-field"> <!--  ->  -->
+      <input type="date" id="date-filter" placeholder="Fecha" class="filter-field"> 
 
-
-
-      <button type="submit" id="apply-filters" class="btn-submit">Consultar</button> <!--  ->  -->
-      <button type="reset" id="reset-filters" class="btn">Limpiar</button> <!--  ->  -->
+      <button type="submit" id="apply-filters" class="btn-submit">Consultar</button> 
+      <button type="reset" id="reset-filters" class="btn">Refresh</button> 
 
     </form>
     
@@ -99,31 +92,31 @@
 
       <h2>NUEVA NOTA</h2>
 
-      <form id="task-form" class="form-section"> <!-- sale-form -> task-form --> 
+      <form id="task-form" class="form-section"> 
 
-        <label for="title-field">Titulo:</label> <!-- client-field -> title-field --> 
+        <label for="title-field">Titulo:</label>  
         <input type="text" id="title-field" class="form-field" required> 
 
-        <label for="description-field">Descripcion:</label> <!--telnumber-field  -> description-field  --> 
+        <label for="description-field">Descripcion:</label>  
         <input type="text" id="description-field" class="form-field" required > 
 
-        <label for="completed">Completed:</label> <!--telnumber-field  -> description-field  --> 
+        <label for="completed">Completed:</label>  
         <select id="completed-field" class="form-field" required> 
           <option value="false" selected>false</option>
           <option value="true" >true</option>
         </select>
         
-        <label for="priority-field">Prioridad:</label> <!--game-field -> priority-field -->
+        <label for="priority-field">Prioridad:</label> 
         <select id="priority-field" class="form-field" required> 
           <option value="Alta" selected>Alta</option>
           <option value="Media" >Media</option>
           <option value="Baja" >Baja</option>
         </select>
 
-        <label for="dueDate-field">Fecha de Entrega:</label> <!-- dateofSale  -> dueDate-field -->
+        <label for="dueDate-field">Fecha de Entrega:</label> 
         <input type="date" id="dueDate-field" class="form-field" required> 
 
-        <label for="tag-field">Etiqueta:</label> <!--game-field -> tag-field -->
+        <label for="tag-field">Etiqueta:</label> 
         <input type = "text" id="tag-field" class="form-field" required> 
          
 
@@ -136,6 +129,11 @@
 
     
   </main>
+  <footer id="footer" class="footer-center">
+
+    <p>Proyecto 2do parcial DFE-2 || Peña Camarena Aaron</p>
+
+  </footer>
 
   <script src="./assets/js/utils.js"></script>
   <script src="./assets/js/fetch-api.js"></script>
