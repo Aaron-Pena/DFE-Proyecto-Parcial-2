@@ -35,8 +35,6 @@
     margin: 0;
     padding: 0;
     border: 0;
-    
-    
   }
 
 html {
@@ -113,6 +111,7 @@ body {
   
   table tbody tr {
     border-bottom: none;
+    
   }
   
   table tbody tr:nth-of-type(even) {
@@ -127,12 +126,7 @@ body {
     padding: 1rem 1.25rem;
     border: none;
     white-space: wrap;
-    font-size: 1.5rem;
-  }
-  
-  table tbody tr td img {
-    max-width: 100px;
-    height: auto;
+    font-size: 1.5rem;  
   }
   
   .message {
