@@ -19,10 +19,13 @@
     --color-buttonSub:#0b9bb3;
     --color-buttonSubAct:#10606e;
     --color-delete:red;
-    --color-deleteAct:#7c0505;
+    --color-deleteAct:#c90303;
     --color-ModalBox:#85838394;
-    --color-update:rgb(65, 255, 7);
-    --color-updateAct:#2f690d;
+    --color-update:#5b79fc;
+    --color-updateAct:#4f65ca;
+    --color-update-saving:#4dc02a;
+    --color-update-savingAct:#55972f;
+
     --size-header: 75px;
     --size-nav-item: 60px;
 }
@@ -276,6 +279,20 @@ body {
     
   }
   
+  button.btn-update-saving {
+    background-color:var(--color-update-saving);
+      border-radius: 8px; 
+      border: 1px solid var(--color-black);
+      color: var(--color-black);
+  }
+  
+  button.btn-update-saving:hover {
+    background: var(--color-update-savingAct);
+    border-radius: 8px; 
+    
+  }
+
+
 
 /*#endregion*/
 

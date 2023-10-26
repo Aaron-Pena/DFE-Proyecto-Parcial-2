@@ -89,7 +89,7 @@ function displayTasksView(tasks) {
         <td class="editable" contenteditable="false">${task.description}</td>
         <td class="editable" contenteditable="false">${task.completed}</td>
         <td class="editable" contenteditable="false">${task.priority}</td>
-        <td class="editable" contenteditable="false" type= "date">${formatDate(task.dueDate)}</td>
+        <td class="editable" contenteditable="false">${formatDate(task.dueDate)}</td>
         <td class="editable" contenteditable="false">${task.tag}</td>
         <td>
           <button class="btn-update" data-task-id="${task.id}">Editar</button>
@@ -117,15 +117,20 @@ function displayTasksView(tasks) {
   
     if (editButton.textContent === 'Editar') {
       editButton.textContent = 'Guardar';
+      editButton.classList.add('btn-update-saving');
       editableCells.forEach(cell => {
         cell.contentEditable = 'true';
   
         
+        
       });
     } else {
       editButton.textContent = 'Editar';
+      editButton.classList.remove('btn-update-saving'); 
       editableCells.forEach(cell => {
         cell.contentEditable = 'false';
+
+        
       });
 
       const taskData = {
