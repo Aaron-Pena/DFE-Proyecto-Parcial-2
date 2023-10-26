@@ -107,11 +107,12 @@
         <label for="description-field">Descripcion:</label> <!--telnumber-field  -> description-field  --> 
         <input type="text" id="description-field" class="form-field" required > 
 
-
-
         <label for="completed">Completed:</label> <!--telnumber-field  -> description-field  --> 
-        <input type="text" id="completed-field" class="form-field" required value="false"> 
-
+        <select id="completed-field" class="form-field" required> 
+          <option value="false" selected>false</option>
+          <option value="true" >true</option>
+        </select>
+        
         <label for="priority-field">Prioridad:</label> <!--game-field -> priority-field -->
         <select id="priority-field" class="form-field" required> 
           <option value="Alta" selected>Alta</option>
@@ -131,6 +132,7 @@
       </form>
 
     </div>
+
 
     
   </main>

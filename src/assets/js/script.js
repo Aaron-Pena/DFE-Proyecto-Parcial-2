@@ -79,34 +79,95 @@ function displayTasksView(tasks) {
   }
   
   function displayTasksTable(tasks) {
-  
     const tablaBody = document.getElementById('data-table-body');
   
     tasks.forEach(task => {
-  
       const row = document.createElement('tr');
-  
       row.innerHTML = `
         <td>${task.id}</td>
-        <td>${task.title}</td>
-        <td>${task.description}</td>
-        <td>${task.completed}</td>
-        <td>${task.priority}</td>
-        <td>${formatDate(task.dueDate)}</td>
-        <td>${task.tag}</td>
+        <td class="editable" contenteditable="false">${task.title}</td>
+        <td class="editable" contenteditable="false">${task.description}</td>
+        <td class="editable" contenteditable="false">${task.completed}</td>
+        <td class="editable" contenteditable="false">${task.priority}</td>
+        <td class="editable" contenteditable="false" type= "date">${formatDate(task.dueDate)}</td>
+        <td class="editable" contenteditable="false">${task.tag}</td>
         <td>
-        <button class="btn-update" data-task-id="${task.id}">Editar</button>
+          <button class="btn-update" data-task-id="${task.id}">Editar</button>
           <button class="btn-delete" data-task-id="${task.id}">Eliminar</button>
         </td>
       `;
   
-      tablaBody.appendChild(row);
+      const editButton = row.querySelector('.btn-update');
+      editButton.addEventListener('click', () => {
+        toggleEditRow(row);
+      });
   
+      tablaBody.appendChild(row);
     });
   
     initDeleteTaskButtonHandler();
   }
+  /////////////
+
+  function toggleEditRow(row) {
+
+    const editButton = row.querySelector('.btn-update');
+    const taskId = editButton.getAttribute('data-task-id');
+    const editableCells = row.querySelectorAll('.editable');
   
+    if (editButton.textContent === 'Editar') {
+      editButton.textContent = 'Guardar';
+      editableCells.forEach(cell => {
+        cell.contentEditable = 'true';
+  
+        
+      });
+    } else {
+      editButton.textContent = 'Editar';
+      editableCells.forEach(cell => {
+        cell.contentEditable = 'false';
+      });
+
+      const taskData = {
+        id:taskId,
+        title: row.cells[1].textContent,
+        description: row.cells[2].textContent,
+        completed: row.cells[3].textContent,
+        priority: row.cells[4].textContent,
+        dueDate: row.cells[5].textContent,
+        tag: row.cells[6].textContent,
+      };
+  
+      saveEdit(taskId,taskData);
+    };
+  }
+  
+
+
+
+  function saveEdit(taskId,taskData) {
+    fetch(`${apiURL}/tasks/${taskId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(taskData),
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Datos enviados")
+        } else {
+          console.error('Error al guardar los datos en el servidor');
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud HTTP:', error);
+      });
+  }
+ 
+
+
+  ////////////////
   function clearTable() {
     const tableBody = document.getElementById('data-table-body');
   
@@ -241,7 +302,13 @@ function initAddTaskButtonsHandler() {
     createTask(taskToSave);
   }
   
-  
+
+//#enregion
+
+
+
+
+  //Poner aqui el EDIT button maybe
   function initDeleteTaskButtonHandler() {
   
     document.querySelectorAll('.btn-delete').forEach(button => {
@@ -256,7 +323,9 @@ function initAddTaskButtonsHandler() {
     });
   
   }
-  
+
+ 
+
   
   //#endregion
   
@@ -275,12 +344,6 @@ function displayTaskOptions(tasks) {
       optionFilter.value = task.title;
       optionFilter.text = `${task.title} - ${task.priority}`;
       taskFilter.appendChild(optionFilter);
-
-
-     // const optionModal = document.createElement('option');
-      //optionModal.value = task.title;
-     // optionModal.text = `${task.priority}`;
-      //taskModal.appendChild(optionModal);
     });
   
   }
@@ -338,6 +401,8 @@ function getTaskData() {
   }
 
 
+
+
 function buildGetTasksDataUrl(title, priority, completed, dueDate,tag) {
 
   const url = new URL(`${apiURL}/tasks`);
@@ -370,7 +435,10 @@ function buildGetTasksDataUrl(title, priority, completed, dueDate,tag) {
 
 initAddTaskButtonsHandler();
 
+
+
 initFilterButtonsHandler();
+
 
 getTaskData();
 
